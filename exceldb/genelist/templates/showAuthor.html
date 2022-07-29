@@ -1,0 +1,21 @@
+<table class="table table-hover" style="border: 1px solid black, border-collapse: collapse">
+        <tr col span="15" style="background-color:LightGray">
+            <th>PMID</th>
+            <th>PMCID</th>
+            <th>DOI</th>
+            <th>Author</th>
+            <th>Journal</th>
+            <th>Title</th>
+            <th>Description</th>
+        </tr>
+        {% csrf_token %}
+        <tr>
+            <th>{{displayAuthor.pmid}}</th>
+            <th>{{displayAuthor.pmcid}}</th>
+            <th>{{displayAuthor.doi}}</th>
+            <th> {{displayAuthor.author}}</th>
+            <th>{{ displayAuthor.journal}}</th>
+            <th>{{ displayAuthor.title }}</th>
+            <th>{{ displayAuthor.description}}</th>
+        </tr>
+</table>

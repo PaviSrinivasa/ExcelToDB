@@ -1,0 +1,20 @@
+{% load widget_tweaks %}
+
+<div class="container">
+
+    <h2 style="color: Red">{{ note }}</h2>
+
+    <form action="{% url 'addLiterature' %}" method="post" >
+        {% csrf_token %}
+        {% for field in addform %}
+            <div class="form-group {%if field.errors %}alert alert-danger{%endif%}">
+              {% csrf_token %}
+              {{ field.errors }}
+              {{ field.label_tag }}
+              {% render_field field class="form-control" %}
+            </div>
+            {% endfor %}
+        <input type="submit" value="Add Literature">
+    </form>
+</div>
+

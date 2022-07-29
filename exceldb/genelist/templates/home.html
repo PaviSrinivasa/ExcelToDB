@@ -1,0 +1,32 @@
+    <table class="table table-hover" style="border: 1px solid black, border-collapse: collapse">
+        <tr col span="15" style="background-color:LightGray">
+            <th>Gene</th>
+            <th>Direct/Indirect</th>
+            <th>Mechanism</th>
+            <th>Method</th>
+            <th>Explanation</th>
+            <th>Author</th>
+            <th>Species</th>
+            <th>Conclusions</th>
+            <th>Zebra finch expression</th>
+        </tr>
+        {% for genedetail in geneInfo.all %}
+        {% csrf_token %}
+        <tr>
+            <th>{{genedetail.gene|capfirst}}</th>
+            <th>{{genedetail.directness}}</th>
+            <th>{{genedetail.mechanism}}</th>
+            <th> {{genedetail.method}}</th>
+            <th>{{ genedetail.explanation }}</th>
+            <th> <a href="{% url 'showAuthor' %}">{{ genedetail.author }}</a></th>
+            <th>{{ genedetail.species }}</th>
+            <th>{{ genedetail.conclusions }}</th>
+            {% if genedetail.zebra %}
+                <th> <a href={{ genedetail.zebra }}>{{ genedetail.zebra }}</a></th>
+            {% else %}
+                <th>{{ genedetail.zebra }}</th>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
