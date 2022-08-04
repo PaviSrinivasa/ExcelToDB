@@ -15,7 +15,7 @@ class Literature (models.Model):
 
 
 class Gene (models.Model):
-    sourcelink = models.ForeignKey(Literature, on_delete=models.CASCADE)
+    sourcelink = models.ForeignKey('Literature', on_delete=models.CASCADE, related_name="authF")
     author = models.CharField(max_length=100)
     DIRECTNESS = [('DIRECT', 'DIRECT'), ('INDIRECT', 'INDIRECT')]
     gene = models.CharField(max_length=200, blank=False)

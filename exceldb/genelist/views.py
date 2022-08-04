@@ -12,18 +12,26 @@ def home(request):
 def addGene(request):
     if request.method == 'POST':
         filled_form = Geneform(request.POST)
+        lit = request.POST.get('sourcelink_id')
+        #author= Literature.objects.get(authF=request.POST.get('literature'))
         if filled_form.is_valid():
-            obj = filled_form.save(commit=False)
-            obj.submitter = request.user
-            created_exp = filled_form.save()
-            messages.success(request,'Success!! The new gene has been added!')
-            created_exp_pk = created_exp.id
+            newobj = filled_form.save(commit=False)
+            newobj.submitter = request.user
+            newobj.sourcelink_id = lit
+            author = Literature.objects.filter(id=lit).first()
+            newobj.author= author
+        #    newobj.author= lit.author(id=lit)
+            newobj.save()
+            #filled_form.sourcelink_id = author.id
+            #created_gene = filled_form.save()
+            #messages.success(request,'Success!! The new gene has been added!')
+            #created_gene_pk = created_gene.id
         else:
             messages.error(request,'The new gene was not created, please try again!')
         new_form = Geneform()
-        expInfo = Gene.objects.all().order_by('-id')
+        geneInfo = Gene.objects.all().order_by('-id')
        # myFilter = ExpFilter(request.GET, queryset=expInfo)
-        return render(request, 'home.html', {'expInfo': expInfo, 'created_exp_pk': created_exp_pk,  #'myFilter': myFilter,
+        return render(request, 'home.html', {'geneInfo': geneInfo, #'created_exp_pk': created_gene_pk,  #'myFilter': myFilter,
                                              })
     else:
         form = Geneform()
@@ -36,9 +44,9 @@ def addLiterature(request):
         if filled_form.is_valid():
             obj = filled_form.save(commit=False)
             obj.submitter = request.user
-            created_exp1 = filled_form.save()
+            created_lit1 = filled_form.save()
             messages.success(request,'Success!! The new literature has been added!')
-            created_exp_pk1 = created_exp1.id
+            created_exp_pk1 = created_lit1.id
         else:
             messages.error(request,'The new gene was not created, please try again!')
         new_form = Literatureform()

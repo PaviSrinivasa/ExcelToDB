@@ -17,20 +17,21 @@ class Literatureform(forms.ModelForm):
                   }
 
 class Geneform(forms.ModelForm):
-    literature = forms.ModelChoiceField(queryset=Literature.objects.all())
+    sourcelink_id = forms.ModelChoiceField(queryset=Literature.objects.all())
 
-    def save(self, commit=True):
-       instance = super(Geneform, self).save(commit=False)
-       lit = self.cleaned_data['literature']
-       instance.literature = lit[0]
-       instance.save(commit)
-       return instance
+    # def save(self, commit=True):
+    #    instance = super(Geneform, self).save(commit=False)
+    #    lit = self.cleaned_data['litobj']
+    #    instance.litobj = lit[0]
+    #    instance.save(commit)
+    #    return instance
 
     class Meta:
         model = Gene
-        fields = ('gene','directness','mechanism','method','explanation','species','conclusions','zebra')
+        fields = ('gene','sourcelink_id','directness','mechanism','method','explanation','species','conclusions','zebra')
         labels = {
                   'gene':'What kind of gene?',
+                  'sourcelink_id':'What is the source?',
                   'directness':'What is the directness?',
                   'mechanism':'Which mechanism was used?',
                   'method': 'Which method was used?',
